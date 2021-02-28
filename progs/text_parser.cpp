@@ -11,6 +11,7 @@ using std::string;
 using std::remove_if;
 using std::transform;
 
+// Возможно одна из существующих ф-й, например, isalpha вам подойдёт
 bool is_symbol(const unsigned char c)
 {
     return ('A' <= toupper(c)) && (toupper(c) <= 'Z');
@@ -25,8 +26,10 @@ string prepare(const string &s)
     }),
                  answer.end());
 
+    // нужна отдельная константа для символа '. вы дважды используете его.
     answer.erase(find(answer.begin(), answer.end(), '\''), answer.end());
 
+    // можно писать просто transform(answer.begin(), answer.end(), answer.begin(), std::tolower);
     transform(answer.begin(), answer.end(), answer.begin(), (int (*)(int))std::tolower);
 
     return answer;
@@ -52,12 +55,14 @@ int main()
 
     for (auto pair : mMap)
         cout << pair.first << " " << pair.second << endl;
+    
+    // FIXIT: вы не нашли top-10 наиболее употребляемых слов
 
 
     return 0;
 }
 
-
+// FIXIT: неиспользуемый код
 class mV
 {
    public:
